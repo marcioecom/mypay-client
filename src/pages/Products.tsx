@@ -55,7 +55,7 @@ export default function Products() {
           p="5"
           rounded='md'
         >
-          <InputGroup mb='5'>
+          <InputGroup mb='5' maxW='80'>
             <Input placeholder='Buscar...' />
             <InputRightElement
               children={
