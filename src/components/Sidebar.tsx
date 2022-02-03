@@ -21,7 +21,6 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Heading,
 } from '@chakra-ui/react';
 import {
   FiHome,
