@@ -1,8 +1,14 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import SidebarWithHeader from './components/Sidebar';
 
 function App() {
   return (
-    <h1>Olá, MyPay!</h1>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={ SidebarWithHeader } />
+      </Switch>
+    </BrowserRouter>
   )
 }
 
