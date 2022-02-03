@@ -86,7 +86,7 @@ export default function Products() {
                       Ativo
                     </Badge>
                   </Td>
-                  <Td>
+                  <Td textAlign='center'>
                     <Menu>
                       <MenuButton
                         as={Button}

@@ -154,6 +154,7 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const history = useHistory();
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -182,12 +183,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        />
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
@@ -219,11 +214,14 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
+              <Text paddingX={3} paddingY={1.5}>
+                teste@mail.com
+              </Text>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem onClick={() => history.push('/profile')}>
+                Meu perfil
+              </MenuItem>
+              <MenuItem>Sair</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
