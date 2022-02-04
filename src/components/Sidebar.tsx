@@ -202,7 +202,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   spacing="1px"
                   ml="2">
                   <Text fontSize="sm">Márcio Júnior</Text>
-                  <Text fontSize="xs" color="gray.600">
+                  <Text fontSize="xs" color={useColorModeValue('gray.600', 'white')}>
                     Admin
                   </Text>
                 </VStack>

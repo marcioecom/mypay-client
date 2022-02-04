@@ -8,7 +8,7 @@ import {
   Input,
   Select,
   Text,
-  VStack,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import SidebarWithHeader from '../components/Sidebar';
 
@@ -32,7 +32,7 @@ export default function Profile() {
           </Text>
         </Box>
 
-        <Box bg='white' rounded='md' p={ 4 } mt={ 4 }>
+        <Box bg={useColorModeValue('white', 'gray.700')} rounded='md' p={ 4 } mt={ 4 }>
           <Box>
             <Text color='gray.500'>Foto</Text>
             <Flex align='center' mt='2'>
@@ -86,7 +86,7 @@ export default function Profile() {
           </Text>
         </Box>
 
-        <Box bg='white' rounded='md' p={ 4 } mt={ 4 }>
+        <Box bg={useColorModeValue('white', 'gray.700')} rounded='md' p={ 4 } mt={ 4 }>
           <Box mt={ 8 }>
             <Text color='gray.500' mb='2'>CEP</Text>
             <Input maxW='160px' />

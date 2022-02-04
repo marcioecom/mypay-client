@@ -20,6 +20,7 @@ import {
   MenuList,
   MenuItem,
   Badge,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import SidebarWithHeader from '../components/Sidebar';
 
@@ -50,7 +51,7 @@ export default function Products() {
           </Button>
         </Flex>
         <Box
-          bg="white"
+          bg={useColorModeValue('white', 'gray.900')}
           w="100%"
           p="5"
           rounded='md'
