@@ -12,10 +12,11 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  Link,
+  Link as LinkStyle,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { Link } from 'react-router-dom';
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,12 +28,12 @@ export default function Register() {
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
+        <Stack align={'center'} textAlign='center'>
           <Heading fontSize={'4xl'} textAlign={'center'}>
-            Sign up
+            Cadastre-se
           </Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
-            to enjoy all of our cool features ✌️
+            e aproveite todas funcionalidades ✌️
           </Text>
         </Stack>
         <Box
@@ -83,12 +84,14 @@ export default function Register() {
                 _hover={{
                   bg: 'blue.500',
                 }}>
-                Sign up
+                Cadastrar
               </Button>
             </Stack>
             <Stack pt={6}>
               <Text align={'center'}>
-                Already a user? <Link color={'blue.400'}>Login</Link>
+                Já tem conta? <Link to='/login'>
+                  <LinkStyle color='blue.500'>Entrar</LinkStyle>
+                </Link>
               </Text>
             </Stack>
           </Stack>

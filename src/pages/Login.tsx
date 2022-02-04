@@ -6,12 +6,13 @@ import {
   Input,
   Checkbox,
   Stack,
-  Link,
+  Link as LinkStyle,
   Button,
   Heading,
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   return (
@@ -21,10 +22,10 @@ export default function Login() {
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+        <Stack align={'center'} textAlign='center'>
+          <Heading fontSize={'4xl'}>Entrar na sua conta</Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
-            to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
+            para aproveitar todas nossas <LinkStyle color={'blue.400'}>funcionalidades</LinkStyle> ✌️
           </Text>
         </Stack>
         <Box
@@ -34,11 +35,11 @@ export default function Login() {
           p={8}>
           <Stack spacing={4}>
             <FormControl id="email">
-              <FormLabel>Email address</FormLabel>
+              <FormLabel>Email</FormLabel>
               <Input type="email" />
             </FormControl>
             <FormControl id="password">
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Senha</FormLabel>
               <Input type="password" />
             </FormControl>
             <Stack spacing={10}>
@@ -47,7 +48,7 @@ export default function Login() {
                 align={'start'}
                 justify={'space-between'}>
                 <Checkbox>Remember me</Checkbox>
-                <Link color={'blue.400'}>Forgot password?</Link>
+                <LinkStyle color={'blue.400'}>Esqueceu a senha?</LinkStyle>
               </Stack>
               <Button
                 bg={'blue.400'}
@@ -55,8 +56,15 @@ export default function Login() {
                 _hover={{
                   bg: 'blue.500',
                 }}>
-                Sign in
+                Entrar
               </Button>
+            </Stack>
+            <Stack pt={ 6 }>
+              <Text align={'center'}>
+                Não tem conta? <Link to='/register'>
+                  <LinkStyle color='blue.500'>Cadastrar</LinkStyle>
+                </Link>
+              </Text>
             </Stack>
           </Stack>
         </Box>
