@@ -10,6 +10,8 @@ import {
 import { FiArrowRight } from 'react-icons/fi';
 import NavBar from '../components/NavBar';
 import { useHistory } from 'react-router-dom';
+import Features from '../components/Features';
+import Footer from '../components/Footer';
 
 function Home() {
   const history = useHistory();
@@ -22,7 +24,7 @@ function Home() {
           as={Box}
           textAlign={'center'}
           spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}>
+          py={{ base: 10, md: 20 }}>
           <Heading
             fontWeight={600}
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
@@ -45,10 +47,8 @@ function Home() {
             position={'relative'}>
             <Button
               colorScheme={'purple'}
-              // bg={'green.400'}
               color='white'
               bg={'#5850ec'}
-              // rounded={'full'}
               px={6}
               rightIcon={<FiArrowRight />}
               onClick={() => history.push('/products')}
@@ -57,7 +57,15 @@ function Home() {
             </Button>
           </Stack>
         </Stack>
+
+        <Stack
+          as={Box}
+          py={{ base: 10, md: 20 }}
+        >
+          <Features />
+        </Stack>
       </Container>
+      <Footer />
     </>
   )
 }
