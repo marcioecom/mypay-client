@@ -23,9 +23,9 @@ export default function Footer() {
         align={{ base: 'center', md: 'center' }}>
         <Text>© 2020 Chakra Templates. All rights reserved</Text>
 
-        <Link to="/a">
-          <LinkStyle>Termos de uso</LinkStyle>
-        </Link>
+        <LinkStyle as={Link} to="/a">
+          Termos de uso
+        </LinkStyle>
       </Container>
     </Box>
   );

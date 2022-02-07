@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
+import NotFound from './pages/NotFound';
 import Products from './pages/Products';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" component={ Register } />
         <Route path="/products" component={ Products } />
         <Route path="/profile" component={ Profile } />
+        <Route component={ NotFound } />
       </Switch>
     </BrowserRouter>
   )
