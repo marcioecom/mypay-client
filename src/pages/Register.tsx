@@ -32,7 +32,7 @@ export default function Register() {
           <Heading fontSize={'4xl'} textAlign={'center'}>
             Cadastre-se
           </Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
+          <Text fontSize={'lg'} color={useColorModeValue('gray.600', 'white')}>
             e aproveite todas funcionalidades ✌️
           </Text>
         </Stack>

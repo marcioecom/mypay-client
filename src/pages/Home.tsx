@@ -51,7 +51,7 @@ function Home() {
               bg={'#5850ec'}
               px={6}
               rightIcon={<FiArrowRight />}
-              onClick={() => history.push('/products')}
+              onClick={() => history.push('/register')}
             >
               Cadastrar
             </Button>

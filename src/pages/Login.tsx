@@ -24,7 +24,7 @@ export default function Login() {
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'} textAlign='center'>
           <Heading fontSize={'4xl'}>Entrar na sua conta</Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
+          <Text fontSize={'lg'} color={useColorModeValue('gray.600', 'white')}>
             para aproveitar todas nossas <LinkStyle color={'blue.400'}>funcionalidades</LinkStyle> ✌️
           </Text>
         </Stack>

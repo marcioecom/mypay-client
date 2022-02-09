@@ -85,7 +85,7 @@ export default function NavBar() {
             fontSize={'sm'}
             fontWeight={400}
             variant={'link'}
-            onClick={goToDashboard}
+            onClick={ () => history.push('/login') }
           >
             Entrar
           </Button>
@@ -97,7 +97,7 @@ export default function NavBar() {
             color={'white'}
             bg={'#5850ec'}
             rightIcon={<FiArrowRight size={20} />}
-            onClick={goToDashboard}
+            onClick={ () => history.push('/register') }
           >
             Cadastrar
           </Button>

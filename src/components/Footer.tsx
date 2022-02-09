@@ -21,7 +21,7 @@ export default function Footer() {
         spacing={4}
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}>
-        <Text>© 2020 Chakra Templates. All rights reserved</Text>
+        <Text>© {new Date().getFullYear()} MyPay. All rights reserved</Text>
 
         <LinkStyle as={Link} to="/a">
           Termos de uso
