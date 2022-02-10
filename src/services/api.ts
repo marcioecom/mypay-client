@@ -29,18 +29,17 @@ async function refreshToken(error: any) {
       api
         .post('/refresh-token', { refresh_token })
         .then(async (res) => {
-          localStorage.setItem(
-            'token',
-            res.data.token,
-          );
-          localStorage.setItem(
-            'refresh_token',
-            res.data.refreshToken.id,
-          );
+          localStorage.setItem('token', res.data.token);
+
+          if (res.data.refreshToken) {
+            localStorage.setItem('refresh_token', res.data.refreshToken.id);
+          }
+
           // Fazer algo caso seja feito o refresh token
           return resolve(res);
         })
         .catch((err) => {
+          console.log(err.message);
           // Fazer algo caso não seja feito o refresh token
           return reject(error);
         });
@@ -56,6 +55,7 @@ api.interceptors.response.use(
   },
   async function (error) {
     const refresh_token = localStorage.getItem('refresh_token');
+
     if (error.response.status === 401 && refresh_token) {
       const originalRequest = error.config;
       const response = await refreshToken(error) as AxiosResponse;
