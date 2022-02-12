@@ -18,6 +18,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 export default function Login() {
+  const emailRegex = /\S+@\S+\.\S+/;
   const history = useHistory();
   const toast = useToast();
   const { handleLogin } = useAuth();
@@ -85,6 +86,7 @@ export default function Login() {
               </Stack>
               <Button
                 onClick={ handleSubmit }
+                disabled={ !(emailRegex.test(email) && password.length >= 6) }
                 bg={'blue.400'}
                 color={'white'}
                 _hover={{
