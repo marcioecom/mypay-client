@@ -14,14 +14,22 @@ import {
   useColorModeValue,
   Link as LinkStyle,
   useToast,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverBody,
+  IconButton,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { InfoOutlineIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 export default function Register() {
-  const emailRegex = /\S+@\S+\.\S+/;
+  const emailRegex = /^\S+@\w+\.\w{2,6}(\.\w{2})?$/;
+
   const { handleRegister } = useAuth();
   const history = useHistory();
   const toast = useToast();
@@ -72,7 +80,7 @@ export default function Register() {
             <HStack>
               <Box>
                 <FormControl id="firstName" isRequired>
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel>Nome</FormLabel>
                   <Input
                     value={ firstName }
                     onChange={(e) => setFirstName(e.target.value)}
@@ -81,8 +89,8 @@ export default function Register() {
                 </FormControl>
               </Box>
               <Box>
-                <FormControl id="lastName">
-                  <FormLabel>Last Name</FormLabel>
+                <FormControl id="lastName" isRequired>
+                  <FormLabel>Sobrenome</FormLabel>
                   <Input
                     value={ lastName }
                     onChange={(e) => setLastName(e.target.value)}
@@ -92,7 +100,7 @@ export default function Register() {
               </Box>
             </HStack>
             <FormControl id="email" isRequired>
-              <FormLabel>Email address</FormLabel>
+              <FormLabel>Email</FormLabel>
               <Input
                 value={ email }
                 onChange={(e) => setEmail(e.target.value)}
@@ -100,7 +108,27 @@ export default function Register() {
               />
             </FormControl>
             <FormControl id="password" isRequired>
-              <FormLabel>Password</FormLabel>
+              <Flex>
+                <FormLabel>
+                  Senha
+                </FormLabel>
+                <Popover placement='top-start'>
+                  <PopoverTrigger>
+                    <IconButton
+                      aria-label='info btn'
+                      size="xs"
+                      icon={ <InfoOutlineIcon /> }
+                    />
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+                    <PopoverBody>
+                      A senha precisa ter pelo menos 6 caracteres
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
+              </Flex>
               <InputGroup>
                 <Input
                   value={ password }
