@@ -13,13 +13,40 @@ import {
   Text,
   useColorModeValue,
   Link as LinkStyle,
+  useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Register() {
+  const emailRegex = /\S+@\S+\.\S+/;
+  const { handleRegister } = useAuth();
+  const history = useHistory();
+  const toast = useToast();
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleSubmit = async () => {
+    try {
+      await handleRegister({ firstName, lastName, email, password })
+      history.push('/products')
+    } catch (error: any) {
+      toast({
+        position: 'top-right',
+        title: 'Algo de errado.',
+        description: error.message,
+        status: 'warning',
+        duration: 3000,
+        isClosable: true,
+      })
+    }
+  }
 
   return (
     <Flex
@@ -46,24 +73,40 @@ export default function Register() {
               <Box>
                 <FormControl id="firstName" isRequired>
                   <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
+                  <Input
+                    value={ firstName }
+                    onChange={(e) => setFirstName(e.target.value)}
+                    type="text"
+                  />
                 </FormControl>
               </Box>
               <Box>
                 <FormControl id="lastName">
                   <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
+                  <Input
+                    value={ lastName }
+                    onChange={(e) => setLastName(e.target.value)}
+                    type="text"
+                  />
                 </FormControl>
               </Box>
             </HStack>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input
+                value={ email }
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+              />
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
+                <Input
+                  value={ password }
+                  onChange={(e) => setPassword(e.target.value)}
+                  type={showPassword ? 'text' : 'password'}
+                />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
@@ -79,6 +122,8 @@ export default function Register() {
               <Button
                 loadingText="Submitting"
                 size="lg"
+                onClick={ handleSubmit }
+                disabled={ !(emailRegex.test(email) && password.length >= 6) }
                 bg={'blue.400'}
                 color={'white'}
                 _hover={{
@@ -90,7 +135,7 @@ export default function Register() {
             <Stack pt={6}>
               <Text align={'center'}>
                 Já tem conta? <Link to='/login'>
-                  <LinkStyle color='blue.500'>Entrar</LinkStyle>
+                  <LinkStyle as="span" color='blue.500'>Entrar</LinkStyle>
                 </Link>
               </Text>
             </Stack>
