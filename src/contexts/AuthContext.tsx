@@ -1,7 +1,8 @@
-import React, { createContext, ReactNode, useState } from "react";
+import React, { createContext, ReactNode, useEffect, useState } from "react";
 import api from "../services/api";
 
 interface AuthContextType {
+  loading: boolean;
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   handleLogin: ({ email, password }: LoginRequest) => Promise<void>;
@@ -25,7 +26,18 @@ interface RegisterRequest extends LoginRequest {
 const AuthContext = createContext({} as AuthContextType);
 
 function AuthProvider({ children }: AuthProviderProps) {
+  const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      setIsAuthenticated(true)
+    }
+
+    setLoading(false)
+  }, [])
 
   async function handleLogin({ email, password }: LoginRequest) {
     const { data } = await api.post("/login", { email, password });
@@ -53,7 +65,9 @@ function AuthProvider({ children }: AuthProviderProps) {
     return setIsAuthenticated(true);
   }
 
-  const context = { isAuthenticated, setIsAuthenticated, handleLogin, handleRegister }
+  const context = {
+    isAuthenticated, setIsAuthenticated, handleLogin, handleRegister, loading
+  }
   return (
     <AuthContext.Provider value={context}>
       { children }
