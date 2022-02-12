@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import {
   IconButton,
   Avatar,
@@ -35,6 +35,7 @@ import {
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import { useHistory } from 'react-router-dom';
+import api from '../services/api';
 
 interface LinkItemProps {
   name: string;
@@ -155,6 +156,20 @@ interface MobileProps extends FlexProps {
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const history = useHistory();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.get('/users/profile');
+
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      setEmail(data.email);
+    })()
+  })
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -201,7 +216,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Márcio Júnior</Text>
+                  <Text fontSize="sm">{`${firstName} ${lastName}`}</Text>
                   <Text fontSize="xs" color={useColorModeValue('gray.600', 'white')}>
                     Admin
                   </Text>
@@ -215,7 +230,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
               <Text paddingX={3} paddingY={1.5}>
-                teste@mail.com
+                { email }
               </Text>
               <MenuDivider />
               <MenuItem onClick={() => history.push('/profile')}>
