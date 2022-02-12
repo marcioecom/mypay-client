@@ -4,7 +4,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Stack,
   Link as LinkStyle,
   Button,
@@ -18,7 +17,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 export default function Login() {
-  const emailRegex = /\S+@\S+\.\S+/;
+  const emailRegex = /^\S+@\w+\.\w{2,6}(\.\w{2})?$/;
+
   const history = useHistory();
   const toast = useToast();
   const { handleLogin } = useAuth();
@@ -77,11 +77,7 @@ export default function Login() {
               />
             </FormControl>
             <Stack spacing={10}>
-              <Stack
-                direction={{ base: 'column', sm: 'row' }}
-                align={'start'}
-                justify={'space-between'}>
-                <Checkbox>Remember me</Checkbox>
+              <Stack>
                 <LinkStyle color={'blue.400'}>Esqueceu a senha?</LinkStyle>
               </Stack>
               <Button
