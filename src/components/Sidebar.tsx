@@ -159,6 +159,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -167,6 +168,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setEmail(data.email);
+      setIsAdmin(data.admin);
     })()
   })
 
@@ -217,9 +219,11 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   spacing="1px"
                   ml="2">
                   <Text fontSize="sm">{`${firstName} ${lastName}`}</Text>
-                  <Text fontSize="xs" color={useColorModeValue('gray.600', 'white')}>
-                    Admin
-                  </Text>
+                  { isAdmin && (
+                    <Text fontSize="xs" color={useColorModeValue('gray.600', 'white')}>
+                      Admin
+                    </Text>
+                  )}
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
