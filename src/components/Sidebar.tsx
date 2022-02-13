@@ -30,6 +30,8 @@ import {
   FiMenu,
   FiChevronDown,
   FiTag,
+  FiLogOut,
+  FiUser,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
@@ -213,9 +215,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <HStack>
                 <Avatar
                   size={'sm'}
-                  src={
-                    'https://github.com/marcioecom.png'
-                  }
+                  // src={'https://github.com/marcioecom.png'}
                 />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
@@ -236,18 +236,22 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             </MenuButton>
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
-              borderColor={useColorModeValue('gray.200', 'gray.700')}>
+              borderColor={useColorModeValue('gray.200', 'gray.700')}
+              color={useColorModeValue('gray.600', 'gray.200')}
+            >
               <Text paddingX={3} paddingY={1.5}>
                 { email }
               </Text>
               <MenuDivider />
               <MenuItem onClick={() => history.push('/profile')}>
+                <Icon as={FiUser} boxSize={5} mr={2} />
                 Meu perfil
               </MenuItem>
               <MenuItem onClick={ () => {
                 handleLogout()
                 history.push('/login')
               } }>
+                <Icon as={FiLogOut} boxSize={5} mr={2} />
                 Sair
               </MenuItem>
             </MenuList>
