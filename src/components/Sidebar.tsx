@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import {
   IconButton,
   Avatar,
@@ -28,7 +28,6 @@ import {
   FiStar,
   FiSettings,
   FiMenu,
-  FiBell,
   FiChevronDown,
   FiTag,
 } from 'react-icons/fi';
@@ -36,12 +35,14 @@ import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import { useHistory } from 'react-router-dom';
 import api from '../services/api';
+import { useAuth } from '../hooks/useAuth';
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
   href: string;
 }
+
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome, href: '/' },
   { name: 'Produtos', icon: FiTag, href: '/products' },
@@ -155,22 +156,25 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const { handleLogout } = useAuth();
   const history = useHistory();
+  const [isAdmin, setIsAdmin] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
+
+  const color = useColorModeValue('gray.600', 'white');
 
   useEffect(() => {
     (async () => {
       const { data } = await api.get('/users/profile');
-
+      
+      setIsAdmin(data.admin); 
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setEmail(data.email);
-      setIsAdmin(data.admin);
-    })()
-  })
+    })();
+  }, [])
 
   return (
     <Flex
@@ -220,7 +224,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   ml="2">
                   <Text fontSize="sm">{`${firstName} ${lastName}`}</Text>
                   { isAdmin && (
-                    <Text fontSize="xs" color={useColorModeValue('gray.600', 'white')}>
+                    <Text fontSize="xs" color={ color }>
                       Admin
                     </Text>
                   )}
@@ -240,7 +244,12 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <MenuItem onClick={() => history.push('/profile')}>
                 Meu perfil
               </MenuItem>
-              <MenuItem>Sair</MenuItem>
+              <MenuItem onClick={ () => {
+                handleLogout()
+                history.push('/login')
+              } }>
+                Sair
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>

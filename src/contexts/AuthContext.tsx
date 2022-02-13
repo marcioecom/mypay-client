@@ -7,6 +7,7 @@ interface AuthContextType {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   handleLogin: ({ email, password }: LoginRequest) => Promise<void>;
   handleRegister: ({ firstName, lastName, email, password }: RegisterRequest) => Promise<void>;
+  handleLogout: () => void;
 }
 
 interface AuthProviderProps {
@@ -65,8 +66,13 @@ function AuthProvider({ children }: AuthProviderProps) {
     return setIsAuthenticated(true);
   }
 
+  function handleLogout() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('refresh_token')
+  }
+
   const context = {
-    isAuthenticated, setIsAuthenticated, handleLogin, handleRegister, loading
+    isAuthenticated, setIsAuthenticated, handleLogin, handleRegister, loading, handleLogout
   }
   return (
     <AuthContext.Provider value={context}>
