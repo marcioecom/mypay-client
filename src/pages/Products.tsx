@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { BiSearchAlt } from 'react-icons/bi';
-import { FiEdit, FiLink, FiMoreVertical } from 'react-icons/fi';
 import {
   Box,
   Button,
@@ -14,20 +13,45 @@ import {
   Tbody,
   Tr,
   Th,
-  Td,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Badge,
   useColorModeValue,
+  useDisclosure,
+  Td,
+  Skeleton,
 } from '@chakra-ui/react';
 import SidebarWithHeader from '../components/Sidebar';
+import CreateProductModal from '../components/CreateProductModal';
+// import ProductsList from '../components/ProductsList';
+// import api from '../services/api';
 
 export default function Products() {
-  React.useEffect(() => {
-    document.title = 'Produtos'
-  }, [])
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const [inputSearch, setInputSearch] = React.useState('');
+  // const [isFetching, setIsFetching] = React.useState(true);
+  // const [products, setProducts] = React.useState([]);
+  // const timeoutRef: { current: NodeJS.Timeout | null } = React.useRef(null);
+
+  // React.useEffect(() => {
+  //   document.title = 'Produtos';
+
+  //   (async () => {
+  //     api.get('/products')
+  //       .then((res) => setProducts(res.data))
+  //       .finally(() => setIsFetching(false))
+  //   })()
+  // }, [])
+
+  // function handleSearch(e: React.FormEvent<HTMLInputElement>) {
+  //   const input = e.currentTarget.value;
+  //   setInputSearch(input)
+
+  //   clearTimeout(timeoutRef.current as NodeJS.Timeout);
+
+  //   const timeout = setTimeout(() => {
+  //     console.log(input);
+  //     timeoutRef.current = null;
+  //   }, 1000)
+  //   timeoutRef.current = timeout;
+  // }
 
   return (
     <SidebarWithHeader>
@@ -43,13 +67,16 @@ export default function Products() {
 
           <Button
             size="md"
-            bg='#5850ec'
+            bg='brand.500'
+            _hover={{ bg: 'brand.400' }}
             color='white'
             fontWeight='400'
+            onClick={onOpen}
           >
             Criar Produto
           </Button>
         </Flex>
+        <CreateProductModal isOpen={isOpen} onClose={onClose} />
         <Box
           bg={useColorModeValue('white', 'gray.900')}
           w="100%"
@@ -57,13 +84,14 @@ export default function Products() {
           rounded='md'
         >
           <InputGroup mb='5' maxW='80'>
-            <Input placeholder='Buscar...' />
+            <Input
+              placeholder='Buscar...'
+              // value={ inputSearch }
+              // onChange={ handleSearch }
+            />
             <InputRightElement
               children={
-                <BiSearchAlt
-                  size='20'
-                  style={{ color: '#5850ec' }}
-                />
+                <BiSearchAlt size='20' style={{ color: '#5850ec' }} />
               }
             />
           </InputGroup>
@@ -78,38 +106,16 @@ export default function Products() {
                   <Th></Th>
                 </Tr>
               </Thead>
-              <Tbody>
-                <Tr>
-                  <Td>Produto</Td>
-                  <Td>97.90</Td>
-                  <Td>
-                    <Badge colorScheme='green'>
-                      Ativo
-                    </Badge>
-                  </Td>
-                  <Td textAlign='center'>
-                    <Menu>
-                      <MenuButton
-                        as={Button}
-                        variant='outline'
-                        paddingX={ 2 }
-                      >
-                        <FiMoreVertical size='22' />
-                      </MenuButton>
-                      <MenuList>
-                        <MenuItem>
-                          <FiLink style={{ marginRight: '8px'}} />
-                          Ver Links
-                        </MenuItem>
-                        <MenuItem>
-                          <FiEdit style={{ marginRight: '8px'}} />
-                          Editar
-                        </MenuItem>
-                      </MenuList>
-                    </Menu>
-                  </Td>
-                </Tr>
-              </Tbody>
+                {/* { isFetching && (
+                  <Tbody>
+                    <Tr>
+                      <Td><Skeleton height='20px' /></Td>
+                      <Td><Skeleton height='20px' /></Td>
+                      <Td><Skeleton height='20px' /></Td>
+                    </Tr>
+                  </Tbody>
+                )}
+                { products && <ProductsList products={products} /> } */}
             </Table>
           </Box>
         </Box>
