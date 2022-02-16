@@ -20,38 +20,38 @@ import {
 } from '@chakra-ui/react';
 import SidebarWithHeader from '../components/Sidebar';
 import CreateProductModal from '../components/CreateProductModal';
-// import ProductsList from '../components/ProductsList';
-// import api from '../services/api';
+import ProductsList from '../components/ProductsList';
+import api from '../services/api';
 
 export default function Products() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [inputSearch, setInputSearch] = React.useState('');
-  // const [isFetching, setIsFetching] = React.useState(true);
-  // const [products, setProducts] = React.useState([]);
-  // const timeoutRef: { current: NodeJS.Timeout | null } = React.useRef(null);
+  const [inputSearch, setInputSearch] = React.useState('');
+  const [isFetching, setIsFetching] = React.useState(true);
+  const [products, setProducts] = React.useState([]);
+  const timeoutRef: { current: NodeJS.Timeout | null } = React.useRef(null);
 
-  // React.useEffect(() => {
-  //   document.title = 'Produtos';
+  React.useEffect(() => {
+    document.title = 'Produtos';
 
-  //   (async () => {
-  //     api.get('/products')
-  //       .then((res) => setProducts(res.data))
-  //       .finally(() => setIsFetching(false))
-  //   })()
-  // }, [])
+    (async () => {
+      api.get('/products')
+        .then((res) => setProducts(res.data))
+        .finally(() => setIsFetching(false))
+    })()
+  }, [])
 
-  // function handleSearch(e: React.FormEvent<HTMLInputElement>) {
-  //   const input = e.currentTarget.value;
-  //   setInputSearch(input)
+  function handleSearch(e: React.FormEvent<HTMLInputElement>) {
+    const input = e.currentTarget.value;
+    setInputSearch(input)
 
-  //   clearTimeout(timeoutRef.current as NodeJS.Timeout);
+    clearTimeout(timeoutRef.current as NodeJS.Timeout);
 
-  //   const timeout = setTimeout(() => {
-  //     console.log(input);
-  //     timeoutRef.current = null;
-  //   }, 1000)
-  //   timeoutRef.current = timeout;
-  // }
+    const timeout = setTimeout(() => {
+      console.log(input);
+      timeoutRef.current = null;
+    }, 1000)
+    timeoutRef.current = timeout;
+  }
 
   return (
     <SidebarWithHeader>
@@ -86,8 +86,8 @@ export default function Products() {
           <InputGroup mb='5' maxW='80'>
             <Input
               placeholder='Buscar...'
-              // value={ inputSearch }
-              // onChange={ handleSearch }
+              value={ inputSearch }
+              onChange={ handleSearch }
             />
             <InputRightElement
               children={
@@ -106,7 +106,7 @@ export default function Products() {
                   <Th></Th>
                 </Tr>
               </Thead>
-                {/* { isFetching && (
+                { isFetching && (
                   <Tbody>
                     <Tr>
                       <Td><Skeleton height='20px' /></Td>
@@ -115,7 +115,7 @@ export default function Products() {
                     </Tr>
                   </Tbody>
                 )}
-                { products && <ProductsList products={products} /> } */}
+                { products && <ProductsList products={products} /> }
             </Table>
           </Box>
         </Box>
