@@ -11,19 +11,12 @@ import {
   Button,
   Tbody,
 } from '@chakra-ui/react';
-
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  status: string;
-}
-
-interface ProductsListProps {
-  products: Product[];
-}
+import { Product } from '../contexts/ProductsContext';
+import { useProducts } from '../hooks/useProducts';
  
-const ProductsList = ({ products }: ProductsListProps) => {
+const ProductsList = () => {
+  const { products } = useProducts();
+
   function convertCurrency(price: number) {
     let value = `${price}`;
     value = value.replace(/\D/g, "");
@@ -52,7 +45,7 @@ const ProductsList = ({ products }: ProductsListProps) => {
 
   return (
     <Tbody>
-      { products.map((product: Product) => (
+      { products && products.map((product: Product) => (
         <Tr key={product.id}>
           <Td>{product.name}</Td>
           <Td color='gray.500' whiteSpace='nowrap'>

@@ -21,24 +21,17 @@ import {
 import SidebarWithHeader from '../components/Sidebar';
 import CreateProductModal from '../components/CreateProductModal';
 import ProductsList from '../components/ProductsList';
-import api from '../services/api';
+import { useProducts } from '../hooks/useProducts';
 
 export default function Products() {
+  const { isFetching } = useProducts();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [inputSearch, setInputSearch] = React.useState('');
-  const [isFetching, setIsFetching] = React.useState(true);
-  const [products, setProducts] = React.useState([]);
   const timeoutRef: { current: NodeJS.Timeout | null } = React.useRef(null);
 
   React.useEffect(() => {
     document.title = 'Produtos';
-
-    (async () => {
-      api.get('/products')
-        .then((res) => setProducts(res.data))
-        .finally(() => setIsFetching(false))
-    })()
-  }, [])
+  })
 
   function handleSearch(e: React.FormEvent<HTMLInputElement>) {
     const input = e.currentTarget.value;
@@ -115,7 +108,7 @@ export default function Products() {
                     </Tr>
                   </Tbody>
                 )}
-                { products && <ProductsList products={products} /> }
+                <ProductsList />
             </Table>
           </Box>
         </Box>
