@@ -18,7 +18,7 @@ import {
   useColorModeValue,
   useToast,
 } from '@chakra-ui/react';
-import api from '../services/api';
+import { useProducts } from '../hooks/useProducts';
 
 type CreateProductModalProps = {
   isOpen: boolean;
@@ -26,6 +26,7 @@ type CreateProductModalProps = {
 }
 
 const CreateProductModal = ({ isOpen, onClose }: CreateProductModalProps) => {
+  const { createProduct } = useProducts();
   const toast = useToast();
   const [paymentMethod, setPaymentMethod] = React.useState('charge');
   const [name, setName] = React.useState('');
@@ -75,7 +76,7 @@ const CreateProductModal = ({ isOpen, onClose }: CreateProductModalProps) => {
     }
 
     try {
-      await api.post("/products", data)
+      createProduct(data);
 
       toast({
         position: 'top-right',
@@ -84,6 +85,10 @@ const CreateProductModal = ({ isOpen, onClose }: CreateProductModalProps) => {
         duration: 3000,
         isClosable: true,
       })
+
+      setName('');
+      setPrice('');
+      onClose();
     } catch (err: any) {
       toast({
         position: 'top-right',
