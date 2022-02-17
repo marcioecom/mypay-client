@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, RouteProps, Redirect } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { ProductsProvider } from './contexts/ProductsContext';
 import { useAuth } from './hooks/useAuth';
 
 import Home from './pages/Home';
@@ -31,16 +32,18 @@ function CustomRoute({ isPrivate, ...rest }: ICustomRoute) {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Home } />
-          <Route path="/login" component={ Login } />
-          <Route path="/register" component={ Register } />
-          <CustomRoute isPrivate path="/products" component={ Products } />
-          <Route path="/profile" component={ Profile } />
-          <Route component={ NotFound } />
-        </Switch>
-      </BrowserRouter>
+      <ProductsProvider>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={ Home } />
+            <Route path="/login" component={ Login } />
+            <Route path="/register" component={ Register } />
+            <CustomRoute isPrivate path="/products" component={ Products } />
+            <Route path="/profile" component={ Profile } />
+            <Route component={ NotFound } />
+          </Switch>
+        </BrowserRouter>
+      </ProductsProvider>
     </AuthProvider>
   )
 }
