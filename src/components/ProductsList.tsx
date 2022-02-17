@@ -24,16 +24,42 @@ interface ProductsListProps {
 }
  
 const ProductsList = ({ products }: ProductsListProps) => {
+  function convertCurrency(price: number) {
+    let value = `${price}`;
+    value = value.replace(/\D/g, "");
+    value = value.replace(/(\d)(\d{2})$/, "$1,$2");
+    value = value.replace(/(?=(\d{3})+(\D))\B/g, ".");
+    return value;
+  }
+
+  function renderBadge(type: string) {
+    if (type === "active") {
+      return (
+        <Badge colorScheme='green'>
+          Ativo
+        </Badge>
+      )
+    }
+
+    if (type === "disabled") {
+      return (
+        <Badge colorScheme='gray'>
+          Desativado
+        </Badge>
+      )
+    }
+  }
+
   return (
     <Tbody>
       { products.map((product: Product) => (
         <Tr key={product.id}>
           <Td>{product.name}</Td>
-          <Td>97.90</Td>
+          <Td color='gray.500' whiteSpace='nowrap'>
+            { `R$ ${convertCurrency(product.price)}` }
+          </Td>
           <Td>
-            <Badge colorScheme='green'>
-              Ativo
-            </Badge>
+            { renderBadge(product.status) }
           </Td>
           <Td textAlign='center'>
             <Menu>
